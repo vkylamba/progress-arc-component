@@ -33,11 +33,14 @@ const Svg = styled.svg`
 `
 
 function ProgressArc({
-  value, max, className, unit,
+  value, max, className, unit, unitFirst,
   arcColor, arcBackgroundColor,
   textColor, textVisible, radius, rounded
 }) {
   const p = 2 * radius * Math.PI
+  var data = `${value}${unit}`
+  if (unitFirst)
+    data = `${unit}${value}`
   return (
     <Svg
       className={className}
@@ -58,7 +61,7 @@ function ProgressArc({
         strokeDasharray={p}/>
 
       {textVisible &&
-        <text x="100" y="115">{`${value}${unit}`}</text>}
+        <text x="100" y="115">{data}</text>}
     </Svg>
   )
 }
@@ -79,6 +82,7 @@ ProgressArc.defaultProps = {
   value: 0,
   max: 100,
   unit: '%',
+  unitFirst: false,
   arcColor: '#818a91',
   arcBackgroundColor: '#eceeef',
   textColor: '#818a91',
